@@ -174,7 +174,7 @@ namespace WinFormsApp2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al desconectar: " + ex.Message);
+                    MessageBox.Show("Error al desconectar : " + ex.Message);
                 }
             }
         }
