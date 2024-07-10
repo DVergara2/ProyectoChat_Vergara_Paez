@@ -13,6 +13,7 @@ namespace ServidorForm1
         private TcpListener server;
         private Thread serverThread;
         private List<TcpClient> clients = new List<TcpClient>();
+
         public Form1()
         {
             InitializeComponent();
@@ -20,15 +21,24 @@ namespace ServidorForm1
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            serverThread = new Thread(StartServer);
-            serverThread.Start();
-            btnStart.Enabled = false;
+            int port;
+            if (int.TryParse(textBoxPort.Text, out port))
+            {
+                serverThread = new Thread(() => StartServer(port));
+                serverThread.Start();
+                btnStart.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Por favor ingrese un número de puerto válido.");
+            }
         }
-        private void StartServer()
+
+        private void StartServer(int port)
         {
-            server = new TcpListener(IPAddress.Any, 5000);
+            server = new TcpListener(IPAddress.Any, port);
             server.Start();
-            Invoke((Action)(() => listViewClientes.Items.Add("Sevidor Iniciado")));
+            Invoke((Action)(() => listViewClientes.Items.Add($"Servidor iniciado en el puerto {port}")));
             while (true)
             {
                 TcpClient client = server.AcceptTcpClient();
@@ -36,9 +46,9 @@ namespace ServidorForm1
                 Invoke((Action)(() => listViewClientes.Items.Add(client.Client.RemoteEndPoint.ToString())));
                 Thread clientThread = new Thread(() => HandleClient(client));
                 clientThread.Start();
-
             }
         }
+
         private void HandleClient(TcpClient client)
         {
             NetworkStream stream = client.GetStream();
@@ -88,7 +98,18 @@ namespace ServidorForm1
                 }
             }
         }
+
         private void listViewClient_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // No es necesario implementar nada aquí por el momento
+        }
+
+        private void textBoxPort_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
