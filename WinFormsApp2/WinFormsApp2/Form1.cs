@@ -1,4 +1,5 @@
 using System;
+using System.Media;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -15,10 +16,12 @@ namespace WinFormsApp2
         private int port;
         private bool isConnected = false;
         private Thread receiveThread;
+        private SoundPlayer notificationSound;
 
         public Form1()
         {
             InitializeComponent();
+            notificationSound = new SoundPlayer(@"C:\Windows\Media\notify.wav"); // Ruta al archivo de sonido
         }
 
         private void ButtonEnter_Click(object sender, EventArgs e)
@@ -66,83 +69,120 @@ namespace WinFormsApp2
             Disconnect();
         }
 
+        private void ButtonBuzz_Click(object sender, EventArgs e)
+        {
+            SendBuzz();
+        }
+
         private void textBoxMessageInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 SendMessage();
+                e.Handled = true;
                 e.SuppressKeyPress = true;
             }
         }
 
-        private void AppendMessage(string message)
-        {
-            string formattedMessage = $"{DateTime.Now.ToString("[HH:mm:ss]")} {message}";
-            textBoxMessages.Invoke((MethodInvoker)delegate
-            {
-                textBoxMessages.AppendText(formattedMessage + Environment.NewLine);
-            });
-        }
-
         private void SendMessage()
         {
-            if (isConnected && !string.IsNullOrWhiteSpace(textBoxMessageInput.Text))
+            if (!isConnected || string.IsNullOrWhiteSpace(textBoxMessageInput.Text)) return;
+
+            string message = $"{username}: {textBoxMessageInput.Text}";
+            AppendMessage(message);
+            byte[] data = Encoding.ASCII.GetBytes(message);
+            stream.Write(data, 0, data.Length);
+            textBoxMessageInput.Clear();
+        }
+
+        private void SendBuzz()
+        {
+            if (!isConnected) return;
+
+            string buzzMessage = $"{username} ha enviado un zumbido!";
+            byte[] data = Encoding.ASCII.GetBytes(buzzMessage);
+            stream.Write(data, 0, data.Length);
+            VibrateWindow();
+        }
+
+        private void AppendMessage(string message)
+        {
+            if (InvokeRequired)
             {
-                string message = textBoxMessageInput.Text;
-                string formattedMessage = $"{username}: {message}";
-                byte[] data = Encoding.ASCII.GetBytes(formattedMessage);
-                stream.Write(data, 0, data.Length);
-                AppendMessage(formattedMessage);
-                textBoxMessageInput.Clear();
+                Invoke(new Action<string>(AppendMessage), message);
+                return;
             }
+            textBoxMessages.AppendText(message + Environment.NewLine);
+            PlayNotificationSound();
         }
 
         private void ReceiveMessages()
         {
-            byte[] data = new byte[1024];
             while (isConnected)
             {
                 try
                 {
+                    byte[] data = new byte[1024];
                     int bytes = stream.Read(data, 0, data.Length);
-                    if (bytes == 0) continue;
-                    string message = Encoding.ASCII.GetString(data, 0, bytes);
-                    AppendMessage(message);
+                    if (bytes > 0)
+                    {
+                        string message = Encoding.ASCII.GetString(data, 0, bytes);
+                        AppendMessage(message);
+
+                        if (message.Contains("ha enviado un zumbido!"))
+                        {
+                            VibrateWindow();
+                        }
+                    }
                 }
-                catch
+                catch (Exception)
                 {
-                    AppendMessage("Se ha perdido la conexión con el servidor.");
+                    isConnected = false;
                     Disconnect();
                 }
             }
+        }
+
+        private void PlayNotificationSound()
+        {
+            try
+            {
+                notificationSound.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al reproducir el sonido: " + ex.Message);
+            }
+        }
+
+        private void VibrateWindow()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(VibrateWindow));
+                return;
+            }
+
+            var originalLocation = this.Location;
+            Random random = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                this.Location = new System.Drawing.Point(originalLocation.X + random.Next(-10, 10), originalLocation.Y + random.Next(-10, 10));
+                Thread.Sleep(20);
+            }
+            this.Location = originalLocation;
         }
 
         private void Disconnect()
         {
             if (isConnected)
             {
-                try
-                {
-                    string exitMessage = $"{username} ha salido del chat.";
-                    byte[] data = Encoding.ASCII.GetBytes(exitMessage);
-                    stream.Write(data, 0, data.Length);
-                    AppendMessage(exitMessage);
-                }
-                catch { }
-
-                stream?.Close();
-                client?.Close();
                 isConnected = false;
-
-                receiveThread?.Interrupt();
-                receiveThread = null;
+                stream.Close();
+                client.Close();
+                AppendMessage($"{username} ha salido del chat.");
+                receiveThread?.Join();
             }
-        }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            Disconnect();
-            base.OnFormClosing(e);
         }
     }
 }

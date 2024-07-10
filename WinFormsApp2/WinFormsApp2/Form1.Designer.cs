@@ -6,6 +6,7 @@
         private System.Windows.Forms.Button ButtonEnter;
         private System.Windows.Forms.Button ButtonSend;
         private System.Windows.Forms.Button ButtonExit;
+        private System.Windows.Forms.Button ButtonBuzz;  // Añadir este botón
         private System.Windows.Forms.TextBox textBoxMessages;
         private System.Windows.Forms.TextBox textBoxMessageInput;
         private System.Windows.Forms.TextBox textBoxUsername;
@@ -28,6 +29,7 @@
             this.ButtonEnter = new System.Windows.Forms.Button();
             this.ButtonSend = new System.Windows.Forms.Button();
             this.ButtonExit = new System.Windows.Forms.Button();
+            this.ButtonBuzz = new System.Windows.Forms.Button();  // Inicializar este botón
             this.textBoxMessages = new System.Windows.Forms.TextBox();
             this.textBoxMessageInput = new System.Windows.Forms.TextBox();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
@@ -71,6 +73,17 @@
             this.ButtonExit.Click += new System.EventHandler(this.ButtonExit_Click);
 
             // 
+            // ButtonBuzz
+            // 
+            this.ButtonBuzz.Location = new System.Drawing.Point(174, 12);  // Ubicación para el nuevo botón
+            this.ButtonBuzz.Name = "ButtonBuzz";
+            this.ButtonBuzz.Size = new System.Drawing.Size(75, 23);
+            this.ButtonBuzz.TabIndex = 3;
+            this.ButtonBuzz.Text = "Zumbido";
+            this.ButtonBuzz.UseVisualStyleBackColor = true;
+            this.ButtonBuzz.Click += new System.EventHandler(this.ButtonBuzz_Click);
+
+            // 
             // textBoxMessages
             // 
             this.textBoxMessages.Location = new System.Drawing.Point(12, 150);
@@ -78,7 +91,7 @@
             this.textBoxMessages.Name = "textBoxMessages";
             this.textBoxMessages.ReadOnly = true;
             this.textBoxMessages.Size = new System.Drawing.Size(260, 70);
-            this.textBoxMessages.TabIndex = 3;
+            this.textBoxMessages.TabIndex = 4;
 
             // 
             // textBoxMessageInput
@@ -86,7 +99,7 @@
             this.textBoxMessageInput.Location = new System.Drawing.Point(12, 229);
             this.textBoxMessageInput.Name = "textBoxMessageInput";
             this.textBoxMessageInput.Size = new System.Drawing.Size(179, 20);
-            this.textBoxMessageInput.TabIndex = 4;
+            this.textBoxMessageInput.TabIndex = 5;
             this.textBoxMessageInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxMessageInput_KeyDown);
 
             // 
@@ -95,7 +108,7 @@
             this.textBoxUsername.Location = new System.Drawing.Point(12, 41);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(260, 20);
-            this.textBoxUsername.TabIndex = 5;
+            this.textBoxUsername.TabIndex = 6;
             this.textBoxUsername.PlaceholderText = "Ingrese su nombre de usuario";
 
             // 
@@ -104,7 +117,7 @@
             this.textBoxIPAddress.Location = new System.Drawing.Point(12, 85);
             this.textBoxIPAddress.Name = "textBoxIPAddress";
             this.textBoxIPAddress.Size = new System.Drawing.Size(179, 20);
-            this.textBoxIPAddress.TabIndex = 6;
+            this.textBoxIPAddress.TabIndex = 7;
             this.textBoxIPAddress.PlaceholderText = "Dirección IP";
 
             // 
@@ -113,7 +126,7 @@
             this.textBoxPort.Location = new System.Drawing.Point(197, 85);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(75, 20);
-            this.textBoxPort.TabIndex = 7;
+            this.textBoxPort.TabIndex = 8;
             this.textBoxPort.PlaceholderText = "Puerto";
 
             // 
@@ -123,7 +136,7 @@
             this.labelIPAddress.Location = new System.Drawing.Point(12, 70);
             this.labelIPAddress.Name = "labelIPAddress";
             this.labelIPAddress.Size = new System.Drawing.Size(61, 13);
-            this.labelIPAddress.TabIndex = 8;
+            this.labelIPAddress.TabIndex = 9;
             this.labelIPAddress.Text = "Dirección IP";
 
             // 
@@ -133,7 +146,7 @@
             this.labelPort.Location = new System.Drawing.Point(197, 70);
             this.labelPort.Name = "labelPort";
             this.labelPort.Size = new System.Drawing.Size(38, 13);
-            this.labelPort.TabIndex = 9;
+            this.labelPort.TabIndex = 10;
             this.labelPort.Text = "Puerto";
 
             // 
@@ -149,6 +162,7 @@
             this.Controls.Add(this.textBoxUsername);
             this.Controls.Add(this.textBoxMessageInput);
             this.Controls.Add(this.textBoxMessages);
+            this.Controls.Add(this.ButtonBuzz);  // Añadir el nuevo botón al formulario
             this.Controls.Add(this.ButtonExit);
             this.Controls.Add(this.ButtonSend);
             this.Controls.Add(this.ButtonEnter);

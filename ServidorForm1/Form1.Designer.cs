@@ -30,6 +30,7 @@
         {
             btnStart = new Button();
             listViewClientes = new ListView();
+            puertobtn = new Button();
             SuspendLayout();
             // 
             // btnStart
@@ -51,11 +52,21 @@
             listViewClientes.UseCompatibleStateImageBehavior = false;
             listViewClientes.SelectedIndexChanged += listViewClient_SelectedIndexChanged;
             // 
+            // puertobtn
+            // 
+            puertobtn.Location = new Point(213, 40);
+            puertobtn.Name = "puertobtn";
+            puertobtn.Size = new Size(75, 23);
+            puertobtn.TabIndex = 2;
+            puertobtn.Text = "Puerto";
+            puertobtn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(puertobtn);
             Controls.Add(listViewClientes);
             Controls.Add(btnStart);
             Name = "Form1";
@@ -67,5 +78,6 @@
 
         private Button btnStart;
         private ListView listViewClientes;
+        private Button puertobtn;
     }
 }
