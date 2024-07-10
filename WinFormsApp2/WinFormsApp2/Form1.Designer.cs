@@ -1,90 +1,4 @@
-﻿/*namespace WinFormsApp2
-{
-    partial class Form1
-    {
-        private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Button ButtonEnter;
-        private System.Windows.Forms.Button ButtonSend;
-        private System.Windows.Forms.TextBox textBoxMessages;
-        private System.Windows.Forms.TextBox textBoxMessageInput;
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private void InitializeComponent()
-        {
-            this.ButtonEnter = new System.Windows.Forms.Button();
-            this.ButtonSend = new System.Windows.Forms.Button();
-            this.textBoxMessages = new System.Windows.Forms.TextBox();
-            this.textBoxMessageInput = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
-
-            // 
-            // ButtonEnter
-            // 
-            this.ButtonEnter.Location = new System.Drawing.Point(12, 12);
-            this.ButtonEnter.Name = "ButtonEnter";
-            this.ButtonEnter.Size = new System.Drawing.Size(75, 23);
-            this.ButtonEnter.TabIndex = 0;
-            this.ButtonEnter.Text = "Entrar";
-            this.ButtonEnter.UseVisualStyleBackColor = true;
-            this.ButtonEnter.Click += new System.EventHandler(this.ButtonEnter_Click);
-
-            // 
-            // ButtonSend
-            // 
-            this.ButtonSend.Location = new System.Drawing.Point(197, 227);
-            this.ButtonSend.Name = "ButtonSend";
-            this.ButtonSend.Size = new System.Drawing.Size(75, 23);
-            this.ButtonSend.TabIndex = 1;
-            this.ButtonSend.Text = "Enviar";
-            this.ButtonSend.UseVisualStyleBackColor = true;
-            this.ButtonSend.Click += new System.EventHandler(this.ButtonSend_Click);
-
-            // 
-            // textBoxMessages
-            // 
-            this.textBoxMessages.Location = new System.Drawing.Point(12, 41);
-            this.textBoxMessages.Multiline = true;
-            this.textBoxMessages.Name = "textBoxMessages";
-            this.textBoxMessages.ReadOnly = true;
-            this.textBoxMessages.Size = new System.Drawing.Size(260, 180);
-            this.textBoxMessages.TabIndex = 2;
-
-            // 
-            // textBoxMessageInput
-            // 
-            this.textBoxMessageInput.Location = new System.Drawing.Point(12, 229);
-            this.textBoxMessageInput.Name = "textBoxMessageInput";
-            this.textBoxMessageInput.Size = new System.Drawing.Size(179, 20);
-            this.textBoxMessageInput.TabIndex = 3;
-
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.textBoxMessageInput);
-            this.Controls.Add(this.textBoxMessages);
-            this.Controls.Add(this.ButtonSend);
-            this.Controls.Add(this.ButtonEnter);
-            this.Name = "Form1";
-            this.Text = "SimpleChat";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-        }
-    }
-}*/
-
-
-namespace WinFormsApp2
+﻿namespace WinFormsApp2
 {
     partial class Form1
     {
@@ -95,6 +9,10 @@ namespace WinFormsApp2
         private System.Windows.Forms.TextBox textBoxMessages;
         private System.Windows.Forms.TextBox textBoxMessageInput;
         private System.Windows.Forms.TextBox textBoxUsername;
+        private System.Windows.Forms.TextBox textBoxIPAddress;
+        private System.Windows.Forms.TextBox textBoxPort;
+        private System.Windows.Forms.Label labelIPAddress;
+        private System.Windows.Forms.Label labelPort;
 
         protected override void Dispose(bool disposing)
         {
@@ -113,6 +31,10 @@ namespace WinFormsApp2
             this.textBoxMessages = new System.Windows.Forms.TextBox();
             this.textBoxMessageInput = new System.Windows.Forms.TextBox();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
+            this.textBoxIPAddress = new System.Windows.Forms.TextBox();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.labelIPAddress = new System.Windows.Forms.Label();
+            this.labelPort = new System.Windows.Forms.Label();
             this.SuspendLayout();
 
             // 
@@ -151,11 +73,11 @@ namespace WinFormsApp2
             // 
             // textBoxMessages
             // 
-            this.textBoxMessages.Location = new System.Drawing.Point(12, 70);
+            this.textBoxMessages.Location = new System.Drawing.Point(12, 150);
             this.textBoxMessages.Multiline = true;
             this.textBoxMessages.Name = "textBoxMessages";
             this.textBoxMessages.ReadOnly = true;
-            this.textBoxMessages.Size = new System.Drawing.Size(260, 150);
+            this.textBoxMessages.Size = new System.Drawing.Size(260, 70);
             this.textBoxMessages.TabIndex = 3;
 
             // 
@@ -177,11 +99,53 @@ namespace WinFormsApp2
             this.textBoxUsername.PlaceholderText = "Ingrese su nombre de usuario";
 
             // 
+            // textBoxIPAddress
+            // 
+            this.textBoxIPAddress.Location = new System.Drawing.Point(12, 85);
+            this.textBoxIPAddress.Name = "textBoxIPAddress";
+            this.textBoxIPAddress.Size = new System.Drawing.Size(179, 20);
+            this.textBoxIPAddress.TabIndex = 6;
+            this.textBoxIPAddress.PlaceholderText = "Dirección IP";
+
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.Location = new System.Drawing.Point(197, 85);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(75, 20);
+            this.textBoxPort.TabIndex = 7;
+            this.textBoxPort.PlaceholderText = "Puerto";
+
+            // 
+            // labelIPAddress
+            // 
+            this.labelIPAddress.AutoSize = true;
+            this.labelIPAddress.Location = new System.Drawing.Point(12, 70);
+            this.labelIPAddress.Name = "labelIPAddress";
+            this.labelIPAddress.Size = new System.Drawing.Size(61, 13);
+            this.labelIPAddress.TabIndex = 8;
+            this.labelIPAddress.Text = "Dirección IP";
+
+            // 
+            // labelPort
+            // 
+            this.labelPort.AutoSize = true;
+            this.labelPort.Location = new System.Drawing.Point(197, 70);
+            this.labelPort.Name = "labelPort";
+            this.labelPort.Size = new System.Drawing.Size(38, 13);
+            this.labelPort.TabIndex = 9;
+            this.labelPort.Text = "Puerto";
+
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.labelPort);
+            this.Controls.Add(this.labelIPAddress);
+            this.Controls.Add(this.textBoxPort);
+            this.Controls.Add(this.textBoxIPAddress);
             this.Controls.Add(this.textBoxUsername);
             this.Controls.Add(this.textBoxMessageInput);
             this.Controls.Add(this.textBoxMessages);
@@ -195,4 +159,3 @@ namespace WinFormsApp2
         }
     }
 }
-
