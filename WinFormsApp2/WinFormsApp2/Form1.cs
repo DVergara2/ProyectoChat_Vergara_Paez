@@ -22,6 +22,11 @@ namespace WinFormsApp2
         {
             InitializeComponent();
             notificationSound = new SoundPlayer(@"C:\Windows\Media\notify.wav"); // Ruta al archivo de sonido
+            // Establecer el tamaño fijo del formulario
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Size = new System.Drawing.Size(347, 338); // Tamaño fijo del formulario
         }
 
         private void ButtonEnter_Click(object sender, EventArgs e)
@@ -46,9 +51,11 @@ namespace WinFormsApp2
                 stream = client.GetStream();
                 isConnected = true;
 
-                AppendMessage($"{username} ha entrado al chat.");
-                byte[] data = Encoding.ASCII.GetBytes($"{username} ha entrado al chat.");
-                stream.Write(data, 0, data.Length);
+                // Deshabilitar el botón después de un solo clic
+                ButtonEnter.Enabled = false;
+
+                // Notificar a todos que un usuario ha entrado
+                NotifyUserStatus($"{username} ha entrado al chat.");
 
                 receiveThread = new Thread(ReceiveMessages);
                 receiveThread.Start();
@@ -66,7 +73,12 @@ namespace WinFormsApp2
 
         private void ButtonExit_Click(object sender, EventArgs e)
         {
+            // Notificar a todos que un usuario ha salido
+            NotifyUserStatus($"{username} ha salido del chat.");
+
             Disconnect();
+            // Habilitar el botón cuando el usuario salga del chat
+            ButtonEnter.Enabled = true;
         }
 
         private void ButtonBuzz_Click(object sender, EventArgs e)
@@ -171,6 +183,14 @@ namespace WinFormsApp2
                 Thread.Sleep(20);
             }
             this.Location = originalLocation;
+        }
+
+        private void NotifyUserStatus(string statusMessage)
+        {
+            if (!isConnected) return;
+
+            byte[] data = Encoding.ASCII.GetBytes(statusMessage);
+            stream.Write(data, 0, data.Length);
         }
 
         private void Disconnect()
