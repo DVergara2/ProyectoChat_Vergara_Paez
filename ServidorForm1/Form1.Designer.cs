@@ -32,6 +32,7 @@
             listViewClientes = new ListView();
             textBoxPort = new TextBox();
             label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // btnStart
@@ -72,11 +73,21 @@
             label1.Text = "Puerto";
             label1.Click += label1_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(199, 56);
+            label2.Name = "label2";
+            label2.Size = new Size(70, 15);
+            label2.TabIndex = 4;
+            label2.Text = "172.20.11.22";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(916, 266);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(textBoxPort);
             Controls.Add(listViewClientes);
@@ -93,5 +104,6 @@
         private System.Windows.Forms.ListView listViewClientes;
         private System.Windows.Forms.TextBox textBoxPort;
         private Label label1;
+        private Label label2;
     }
 }
