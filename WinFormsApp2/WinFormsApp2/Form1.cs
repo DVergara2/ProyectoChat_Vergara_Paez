@@ -124,7 +124,14 @@ namespace WinFormsApp2
                 Invoke(new Action<string>(AppendMessage), message);
                 return;
             }
-            textBoxMessages.AppendText(message + Environment.NewLine);
+
+            // Obtener la fecha y hora actual
+            string timestamp = DateTime.Now.ToString("[dd/MM/yyyy HH:mm:ss] ");
+
+            // Agregar el mensaje con la fecha y hora al cuadro de texto
+            textBoxMessages.AppendText(timestamp + message + Environment.NewLine);
+
+            // Reproducir el sonido de notificación
             PlayNotificationSound();
         }
 
